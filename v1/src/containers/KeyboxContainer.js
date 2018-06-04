@@ -31,8 +31,6 @@ class KeyboxContainer extends Component {
       selectedKey
     } = this.props;
 
-    console.log('selectedKey = ', selectedKey);
-
     return (
       <div>
         <Picker
@@ -55,10 +53,6 @@ KeyboxContainer.propTypes = {
 
 function mapStateToProps(state) {
   const { keys, selectedKey } = state;
-
-  console.log('keys = ', keys);
-  console.log('selectedKey = ', selectedKey);
-
   return {
     keys,
     selectedKey
