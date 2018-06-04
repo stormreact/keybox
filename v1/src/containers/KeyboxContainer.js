@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   selectKey,
-  invalidateKey,
   addKey
 } from "../actions";
 import Picker from "../components/Picker";
@@ -13,24 +12,17 @@ class KeyboxContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleRefreshClick = this.handleRefreshClick.bind(this);
     this.processKeyForm = this.processKeyForm.bind(this);
   }
 
   handleChange(nextDatadir) {
-    this.props.dispatch(selectKey(nextDatadir));
-  }
-
-  handleRefreshClick(e) {
-    e.preventDefault();
-
-    const { dispatch, selectedKey } = this.props;
-    dispatch(invalidateKey(selectedKey));
+    const { selectKey } = this.props;
+    selectKey(nextDatadir);
   }
 
   processKeyForm(values) {
-    const { dispatch } = this.props;
-    dispatch(addKey(values));
+    const { addKey } = this.props;
+    addKey(values);
   }
 
   render() {
@@ -38,6 +30,9 @@ class KeyboxContainer extends Component {
       keys,
       selectedKey
     } = this.props;
+
+    console.log('selectedKey = ', selectedKey);
+
     return (
       <div>
         <Picker
@@ -61,10 +56,13 @@ KeyboxContainer.propTypes = {
 function mapStateToProps(state) {
   const { keys, selectedKey } = state;
 
+  console.log('keys = ', keys);
+  console.log('selectedKey = ', selectedKey);
+
   return {
     keys,
     selectedKey
   };
 }
 
-export default connect(mapStateToProps)(KeyboxContainer);
+export default connect(mapStateToProps,{addKey, selectKey})(KeyboxContainer);
