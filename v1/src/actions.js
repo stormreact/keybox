@@ -7,20 +7,12 @@ export const toggleCheckbox = name => ({
     name
 })
 
-export const addKey = values => {
-  const key = values.key;
-
-  console.log('myaction',values);
-
-  return {
+export const addKey = key => ({
     type: ADD_KEY,
-    values
-  };
-};
+    key
+});
 
-export const selectKey = key => {
-  return {
+export const selectKey = key => ({
     type: SELECT_KEY,
     key
-  };
-};
+});
