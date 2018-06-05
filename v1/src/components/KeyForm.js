@@ -1,33 +1,51 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
-const KeyForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+});
+
+class KeyForm extends React.Component {
+
+  render() {
+    const { classes, handleSubmit } = this.props;
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
       <div>
-        <label>New Key</label>
-        <div>
-          <Field
-            name="key"
-            component="input"
-            type="text"
-            placeholder="data4"
-          />
-        </div>
+      <TextField
+        id="name"
+        label="Name"
+        placeholder="Placeholder"
+        helperText="Full width!"
+        margin="normal"
+      />
       </div>
       <div>
-        <button type="submit" disabled={pristine || submitting}>
+        <button type="submit">
           Submit
-        </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Value
         </button>
       </div>
     </form>
   );
+  }
 };
 
-export default reduxForm({
-  form: "keyform" // a unique identifier for this form
-})(KeyForm);
+KeyForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(KeyForm);
