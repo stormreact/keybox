@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  selectKey,
-  addKey
-} from "../actions";
+import { selectKey, addKey } from "../actions";
 import Picker from "../components/Picker";
-// import KeyForm from "../components/KeyForm";
 
 class KeyboxContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.processKeyForm = this.processKeyForm.bind(this);
   }
 
   handleChange(nextDatadir) {
@@ -20,17 +15,8 @@ class KeyboxContainer extends Component {
     selectKey(nextDatadir);
   }
 
-  processKeyForm(values) {
-    const { addKey } = this.props;
-    addKey(values);
-  }
-
   render() {
-    const {
-      keys,
-      selectedKey,
-      addKey
-    } = this.props;
+    const { keys, selectedKey, addKey } = this.props;
 
     let input;
     return (
@@ -41,23 +27,19 @@ class KeyboxContainer extends Component {
           options={keys}
         />
         <div>
-
-          <form onSubmit={e => {
-            e.preventDefault()
-            if (!input.value.trim()) {
-              return
-            }
-            addKey(input.value)
-            input.value = ''
-          }}>
-            <input ref={node => input = node} />
-            <button type="submit">
-              Add Key
-            </button>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              if (!input.value.trim()) {
+                return;
+              }
+              addKey(input.value);
+              input.value = "";
+            }}
+          >
+            <input ref={node => (input = node)} />
+            <button type="submit">Add Key</button>
           </form>
-
-
-
         </div>
       </div>
     );
@@ -77,4 +59,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,{addKey, selectKey})(KeyboxContainer);
+export default connect(mapStateToProps, { addKey, selectKey })(KeyboxContainer);
