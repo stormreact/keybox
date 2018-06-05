@@ -10,9 +10,12 @@ export function selectedKey(state = 'data2', action) {
 }
 
 export const keys = (state = ['data2','data3'], action) => {
+
+  console.log('myreducer',action);
+
   switch (action.type) {
     case ADD_KEY:
-      return [...state, action.key];
+      return [...state, action.values];
     default:
       return state;
   }

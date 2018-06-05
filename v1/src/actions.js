@@ -9,9 +9,12 @@ export const toggleCheckbox = name => ({
 
 export const addKey = values => {
   const key = values.key;
+
+  console.log('myaction',values);
+
   return {
     type: ADD_KEY,
-    key
+    values
   };
 };
 

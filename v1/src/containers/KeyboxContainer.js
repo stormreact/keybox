@@ -6,7 +6,7 @@ import {
   addKey
 } from "../actions";
 import Picker from "../components/Picker";
-import KeyForm from "../components/KeyForm";
+// import KeyForm from "../components/KeyForm";
 
 class KeyboxContainer extends Component {
   constructor(props) {
@@ -28,9 +28,11 @@ class KeyboxContainer extends Component {
   render() {
     const {
       keys,
-      selectedKey
+      selectedKey,
+      addKey
     } = this.props;
 
+    let input;
     return (
       <div>
         <Picker
@@ -39,7 +41,23 @@ class KeyboxContainer extends Component {
           options={keys}
         />
         <div>
-          <KeyForm onSubmit={this.processKeyForm} />
+
+          <form onSubmit={e => {
+            e.preventDefault()
+            if (!input.value.trim()) {
+              return
+            }
+            addKey(input.value)
+            input.value = ''
+          }}>
+            <input ref={node => input = node} />
+            <button type="submit">
+              Add Key
+            </button>
+          </form>
+
+
+
         </div>
       </div>
     );

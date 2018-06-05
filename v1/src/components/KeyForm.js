@@ -22,30 +22,29 @@ class KeyForm extends React.Component {
 
   render() {
     const { classes, handleSubmit } = this.props;
-
+    let input
   return (
-    <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
-      <div>
-      <TextField
-        id="name"
-        label="Name"
-        placeholder="Placeholder"
-        helperText="Full width!"
-        margin="normal"
-      />
-      </div>
-      <div>
+    <div>
+      <form onSubmit={e => {
+        e.preventDefault()
+        if (!input.value.trim()) {
+          return
+        }
+        input.value
+      }}>
+        <input ref={node => input = node} />
         <button type="submit">
-          Submit
+          Add Todo
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
   }
 };
 
 KeyForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(KeyForm);
